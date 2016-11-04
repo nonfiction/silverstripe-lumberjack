@@ -13,6 +13,11 @@
 class Lumberjack extends SiteTreeExtension {
 
 	/**
+	 * Set the default sort order for items
+	 */
+	public static $sort_order = "Sort";
+
+	/**
 	 * Loops through subclasses of the owner (intended to be SiteTree) and checks if they've been hidden.
 	 *
 	 * @return array
@@ -40,7 +45,8 @@ class Lumberjack extends SiteTreeExtension {
 			$pages = SiteTree::get()->filter(array(
 				'ParentID' => $this->owner->ID,
 				'ClassName' => $excluded
-			));
+			))->sort(self::$sort_order);
+
 			$gridField = new GridField(
 				"ChildPages",
 				$this->getLumberjackTitle(),
